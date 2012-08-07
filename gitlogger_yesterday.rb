@@ -22,11 +22,11 @@ File.open(File.expand_path(filename),'r') do |infile|
 		Dir.chdir(path)
 
 		repo_log = ''
-		repo_log = %x{git log --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="yesterday"}.gsub(/%(\d+)%/) { |timestamp|
+		repo_log = %x{git log --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="2 days ago" --until="yesterday"}.gsub(/%(\d+)%/) { |timestamp|
 			timestamp.gsub!(/%/,'')
 			Time.at(timestamp.to_i).strftime("%I:%M %p").gsub(/^0/,'')
 		}
-		repo_log = %x{git fetch && git log --remotes --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="yesterday"}.gsub(/%(\d+)%/) { |timestamp|
+		repo_log = %x{git fetch && git log --remotes --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="2 days ago" --until="yesterday"}.gsub(/%(\d+)%/) { |timestamp|
 			timestamp.gsub!(/%/,'')
 			Time.at(timestamp.to_i).strftime("%I:%M %p").gsub(/^0/,'')
 		} if repo_log == ''
@@ -45,7 +45,7 @@ if dayone
 
 	dayonedir = %x{ls ~/Library/Mobile\\ Documents/|grep dayoneapp}.strip
 	dayonepath = "~/Library/Mobile\ Documents/#{dayonedir}/Documents/Journal_dayone/entries/"
-	entry = CGI.escapeHTML("## Git Log #{Time.now.strftime("%D")}:\n\n#{entrytext.gsub(/^\s{4}\n/,"").gsub(/\n{3,}/m,"\n\n")}")
+	entry = CGI.escapeHTML("## Git Log (Yesterday) #{Time.now.strftime("%D")}:\n\n#{entrytext.gsub(/^\s{4}\n/,"").gsub(/\n{3,}/m,"\n\n")}")
 	template = ERB.new <<-XMLTEMPLATE
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
