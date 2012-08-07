@@ -6,7 +6,7 @@ require 'cgi'
 filename = "~/.gitlogger"
 ## File format, One per line
 # Repo Name:/path/to/base
-dayone = true # log to day one? (true or false)
+dayone = true # log to da one? (true or false)
 textlog = false # don't log to text file
 # textlog = "~/Dropbox/Simplenote/GitLogger.md" # set to false to disable
 
@@ -22,11 +22,11 @@ File.open(File.expand_path(filename),'r') do |infile|
 		Dir.chdir(path)
 
 		repo_log = ''
-		repo_log = %x{git log --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="2 days ago" --until="yesterday"}.gsub(/%(\d+)%/) { |timestamp|
+		repo_log = %x{git log --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="2 days ago" --until="today"}.gsub(/%(\d+)%/) { |timestamp|
 			timestamp.gsub!(/%/,'')
 			Time.at(timestamp.to_i).strftime("%I:%M %p").gsub(/^0/,'')
 		}
-		repo_log = %x{git fetch && git log --remotes --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="2 days ago" --until="yesterday"}.gsub(/%(\d+)%/) { |timestamp|
+		repo_log = %x{git fetch && git log --remotes --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --since="2 days ago" --until="today"}.gsub(/%(\d+)%/) { |timestamp|
 			timestamp.gsub!(/%/,'')
 			Time.at(timestamp.to_i).strftime("%I:%M %p").gsub(/^0/,'')
 		} if repo_log == ''
