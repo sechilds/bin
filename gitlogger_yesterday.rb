@@ -22,11 +22,11 @@ File.open(File.expand_path(filename),'r') do |infile|
 		Dir.chdir(path)
 
 		repo_log = ''
-		repo_log = %x{git log --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --after="2 days ago" --until="today"}.gsub(/%(\d+)%/) { |timestamp|
+		repo_log = %x{git log --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --after="12am yesterday" --before="12am"}.gsub(/%(\d+)%/) { |timestamp|
 			timestamp.gsub!(/%/,'')
 			Time.at(timestamp.to_i).strftime("%I:%M %p").gsub(/^0/,'')
 		}
-		repo_log = %x{git fetch && git log --remotes --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --after="2 days ago" --until="today"}.gsub(/%(\d+)%/) { |timestamp|
+		repo_log = %x{git fetch && git log --remotes --first-parent --no-merges --author="#{git_user}" --pretty=format:"* **[#{name}]** %%%ct%%: %s (%h)%n    %+b%n" --after="12am yesterday" --before="12am"}.gsub(/%(\d+)%/) { |timestamp|
 			timestamp.gsub!(/%/,'')
 			Time.at(timestamp.to_i).strftime("%I:%M %p").gsub(/^0/,'')
 		} if repo_log == ''
