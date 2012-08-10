@@ -45,7 +45,7 @@ if dayone
 
 	dayonedir = %x{ls ~/Library/Mobile\\ Documents/|grep dayoneapp}.strip
 	dayonepath = "~/Library/Mobile\ Documents/#{dayonedir}/Documents/Journal_dayone/entries/"
-	entry = CGI.escapeHTML("## Git Log (Yesterday) #{Time.now.strftime("%D")}:\n\n#{entrytext.gsub(/^\s{4}\n/,"").gsub(/\n{3,}/m,"\n\n")}")
+	entry = CGI.escapeHTML("## Git Log (Yesterday) #{(Time.now-86400).strftime("%F")}:\n\n#{entrytext.gsub(/^\s{4}\n/,"").gsub(/\n{3,}/m,"\n\n")}")
 	template = ERB.new <<-XMLTEMPLATE
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -74,7 +74,7 @@ XMLTEMPLATE
 	# puts "Entry:   " + entrytext
 end
 if textlog
-	entry = "---\n\n### #{Time.now.strftime("%D")}:\n\n#{entrytext.gsub(/^\s{4}\n/,"").gsub(/\n{3,}/m,"\n\n")}"
+	entry = "---\n\n### #{(Time.now-86400).strftime("%F")}:\n\n#{entrytext.gsub(/^\s{4}\n/,"").gsub(/\n{3,}/m,"\n\n")}"
 	open(File.expand_path(textlog), 'a') { |f|
 		f.puts entry
 	}
