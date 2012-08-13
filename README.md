@@ -17,3 +17,6 @@ It's taken directly from the post [Use Mail.app to send emails from the command 
 The code is available as a [gist](https://gist.github.com/2475544).
 If you don't pass any text to it, it will wait for you to enter some.
 To finish the command, press `CTRL-D`.
+* `instapaper.pl` sends a URL to [Instapaper](http://instapaper.com).
+The script is based on [Creating a 'Save to Instapaper' Service for Mac OS X](http://e20labs.org/2012/07/03/creating-a-save-to-instapaper-service-for-mac-os-x/).
+It doesn't currently work for me.
