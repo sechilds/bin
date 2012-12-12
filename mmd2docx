@@ -48,6 +48,7 @@ echo ". . . done!"
 echo "Converting ${no_extension} to docx. . . (please wait while Open/LibreOffice opens and converts the file)"
 ## CHANGE THE PATH TO OPEN/LIBREOFFICE HERE!
 /Applications/LibreOffice.app/Contents/MacOS/soffice.bin --invisible --convert-to docx "${no_extension}".fodt
+# /Applications/OpenOffice.org.app/Contents/MacOS/soffice.bin --invisible --convert-to docx "${no_extension}".fodt
 ##
 echo ". . . done!"
 
