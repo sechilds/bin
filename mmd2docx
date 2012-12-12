@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+#
+#-----------
+# mmd2docx 
+#-----------
+#
+# Author:		Andrew Heiss - http://www.andrewheiss.com
+# Project site:		http://gist.github.com/1199596
+# Description:		Convert MultiMarkdown files into docx files using LibreOffice
+# License:		Licensed under the MIT License (see below)
+# Date:			September 6, 2011
+# Version:	    	1.0 (September 6, 2011)
+#
+#---------------------------------
+# INSTRUCTIONS AND CONFIGURATION
+#---------------------------------
+# 
+#   1. Download and install LibreOffice or OpenOffice.
+#   2. Change the path in the script below to match your installed office suite:
+#       a. For LibreOffice: /Applications/LibreOffice.app/Contents/MacOS/soffice.bin
+#       b. For OpenOffice: /Applications/OpenOffice.app/Contents/MacOS/soffice.bin
+#   3. Run script like so: `mmd2docx file.md`
+#
+#---------------
+# KNOWN ISSUES
+#---------------
+#
+#   1. .docx files created programmatically apparently don't get any Quicklook metadata. The icon will not show a preview and running Quicklook will show a blank document. Once you open the file and save it from a word processing program, Finder will show everything as expected. If only there was a bash command to force Finder to rebuild the Quicklook cache for specific files...
+#
+#
+#----------
+# ROADMAP
+#----------
+#
+#   * Create a better notification system, with right-aligned statuses in cool colors.
+#   * Make the path to Open/LibreOffice more easily configurable
+#
+#----------------
+# ACTUAL SCRIPT
+#----------------
+
+filename="${1}"
+no_extension=${filename%.*}
+echo -n "Converting ${no_extension} to fodt. . . "
+mmd2odf "${1}"
+echo ". . . done!"
+
+echo "Converting ${no_extension} to docx. . . (please wait while Open/LibreOffice opens and converts the file)"
+## CHANGE THE PATH TO OPEN/LIBREOFFICE HERE!
+/Applications/LibreOffice.app/Contents/MacOS/soffice.bin --invisible --convert-to docx "${no_extension}".fodt
+##
+echo ". . . done!"
+
+echo -n "Deleting ${no_extension}.fodt. . . "
+rm "${no_extension}".fodt
+echo ". . . done!"
+
+echo "Document converted!"
+
+
+#----------
+# LICENSE
+#----------
+#
+# mmd2docx is licensed under the MIT License:
+# 
+# Copyright (c) 2011 Andrew Heiss (http://www.andrewheiss.com)
+#  
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#  
+# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#  
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
