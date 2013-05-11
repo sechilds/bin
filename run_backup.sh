@@ -1,3 +1,4 @@
+#!/bin/bash
 cp ~/Dropbox/Simplenote/drafts_clips.txt ~/.running/
 cp ~/Dropbox/Simplenote/attacked.txt ~/.running/
 cp ~/Dropbox/Simplenote/work.txt ~/.running/
