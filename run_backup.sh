@@ -6,6 +6,5 @@ cp ~/Dropbox/Simplenote/videos.txt ~/.running/
 
 cd ~/.running
 git add -v --ignore-errors .
-commsg = "Backup_"`date +%Y%m%d%h%M`
-git commit -qm $commsg
+git commit -qm "Backed up Running Files `date`"
 
